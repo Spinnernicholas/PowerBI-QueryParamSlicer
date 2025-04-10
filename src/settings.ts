@@ -31,28 +31,33 @@ import { formattingSettings } from "powerbi-visuals-utils-formattingmodel";
 import FormattingSettingsCard = formattingSettings.SimpleCard;
 import FormattingSettingsSlice = formattingSettings.Slice;
 import FormattingSettingsModel = formattingSettings.Model;
-
+import FormattingSettingsToggleSwitch = formattingSettings.ToggleSwitch;
 
 /**
- * General Formatting Card
+ * Debug Settings Formatting Card (New Card)
  */
-class generalCardSettings extends FormattingSettingsCard {
-    filter: FormattingSettingsSlice = undefined;
-    setFilter: FormattingSettingsSlice = undefined;
-    setFilterEnabled: FormattingSettingsSlice = undefined;
+class DebugSettingsCard extends FormattingSettingsCard {
+  // Define the ToggleSwitch property here
+  showDebugInfo = new FormattingSettingsToggleSwitch({
+    name: "showDebugInfo", // Must match capabilities.json object.property
+    displayName: "Show Debug Info",
+    value: false, // Default value is off
+  });
 
-    name: string = "general";
-    displayName: string = "General";
-    slices: Array<FormattingSettingsSlice> = [this.filter, this.setFilter, this.setFilterEnabled];
+  name: string = "debugSettings"; // Must match capabilities.json object name
+  displayName: string = "Debug Settings";
+  // Add the toggle switch to this card's slices array
+  slices: Array<FormattingSettingsSlice> = [this.showDebugInfo];
 }
 
 /**
-* Visual settings model class
-*
-*/
+ * Visual settings model class
+ *
+ */
 export class VisualFormattingSettingsModel extends FormattingSettingsModel {
-    // Create formatting settings model formatting cards
-    generalCard = new generalCardSettings();
+  // Create instances of the formatting cards
+  debugSettingsCard = new DebugSettingsCard(); // Instantiate the new card
 
-    cards = [this.generalCard];
+  // Add both cards to the model's cards array
+  cards = [this.debugSettingsCard];
 }
