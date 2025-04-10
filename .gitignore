@@ -1,3 +1,7 @@
+.tmp
+
+webpack.statistics.*.html
+
 # Logs
 logs
 *.log
